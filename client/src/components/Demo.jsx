@@ -2,15 +2,29 @@ import { useState } from "react";
 import { linkIcon } from "../assets";
 
 function Demo() {
-  const [text, setText] = useState("");
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log(text);
-  };
+  const [queryDescription, setQueryDescription] = useState("");
 
   const changeHandler = (event) => {
-    setText(event.target.value);
+    setQueryDescription(event.target.value);
+  };
+
+  const generateQuery = async () => {
+    const response = await fetch("http://localhost:3002/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({queryDescription: queryDescription})
+    });
+
+    const data = await response.json();
+    return data
+  }
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const sqlQuery = await generateQuery();
+    console.log(sqlQuery);
   };
 
   return (
@@ -28,7 +42,7 @@ function Demo() {
           <input
             type="text"
             placeholder="Enter some Text"
-            value={text}
+            value={queryDescription}
             onChange={changeHandler}
             className="url_input peer"
             required
