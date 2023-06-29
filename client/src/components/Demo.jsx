@@ -1,16 +1,34 @@
 import { useState } from "react";
-import { linkIcon } from "../assets";
+import { linkIcon, copy, tick } from "../assets";
 
 function Demo() {
-  const [text, setText] = useState("");
+  const [userPrompt, setUserPrompt] = useState("");
+  const [sqlQuery, setSqlQuery] = useState("");
+  const [copied, setCopied] = useState("");
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log(text);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const query = await generateQuery();
+    setSqlQuery(query);
   };
 
-  const changeHandler = (event) => {
-    setText(event.target.value);
+  const generateQuery = async () => {
+    const response = await fetch("http://localhost:3002/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ queryDescription: userPrompt }),
+    });
+
+    const data = await response.json();
+    return data.sqlQuery.trim();
+  };
+
+  const handleCopy = (copyQuery) => {
+    setCopied(copyQuery);
+    navigator.clipboard.writeText(copyQuery);
+    setTimeout(() => setCopied(""), 3000);
   };
 
   return (
@@ -18,7 +36,7 @@ function Demo() {
       <div className="flex flex-col w-full gap-2">
         <form
           className="relative flex justify-center items-center"
-          onSubmit={submitHandler}
+          onSubmit={onSubmit}
         >
           <img
             src={linkIcon}
@@ -28,8 +46,8 @@ function Demo() {
           <input
             type="text"
             placeholder="Enter some Text"
-            value={text}
-            onChange={changeHandler}
+            value={userPrompt}
+            onChange={(e) => setUserPrompt(e.target.value)}
             className="url_input peer"
             required
           />
@@ -40,6 +58,28 @@ function Demo() {
             Go
           </button>
         </form>
+      </div>
+
+      <div className="my-10 max-w-full flex justify-center items-center">
+        {sqlQuery && (
+          <div className="flex flex-col gap-3">
+            <h2 className="font-satoshi text-bold text-gray-600 text-xl">
+              SQL <span className="blue_gradient">Query</span>
+            </h2>
+            <div className="summary_box">
+              <div className="copy_btn" onClick={() => handleCopy(sqlQuery)}>
+                <img
+                  src={copied === sqlQuery ? tick : copy}
+                  alt="copy-btn"
+                  className="w-[40%] h-[40%] object-contain"
+                />
+              </div>
+              <p className="font-inter px-3 font-medium text-sm text-gray-700">
+                {sqlQuery}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

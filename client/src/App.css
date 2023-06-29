@@ -41,15 +41,15 @@
   max-width: 640px;
   background-image: radial-gradient(
       at 27% 37%,
-      hsla(215, 98%, 61%, 1) 0px,
+      rgb(29, 152, 246) 0px,
       transparent 0%
     ),
-    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
-    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
-    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
-    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
-    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 60%),
+    radial-gradient(at 52% 99%, rgb(55, 243, 252) 0px, transparent 60%),
+    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 60%),
+    radial-gradient(at 97% 96%, rgb(139, 255, 130) 0px, transparent 60%),
+    radial-gradient(at 33% 50%, rgb(108, 148, 241) 0px, transparent 60%),
+    radial-gradient(at 79% 53%, rgb(0, 255, 229) 0px, transparent 60%);
   position: absolute;
   content: "";
   width: 100%;
@@ -83,6 +83,10 @@
   @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
 
+.green_gradient {
+  @apply bg-gradient-to-r from-teal-300 via-cyan-500 to-emerald-300 bg-clip-text text-transparent;
+}
+
 .desc {
   @apply mt-5 text-lg text-gray-600 sm:text-xl text-center max-w-2xl;
 }
@@ -104,9 +108,9 @@
 }
 
 .blue_gradient {
-  @apply font-black bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+  @apply font-black bg-gradient-to-r from-blue-500 to-cyan-600 bg-clip-text text-transparent;
 }
 
 .summary_box {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-4;
+  @apply flex items-center justify-start flex-row rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-4;
 }
