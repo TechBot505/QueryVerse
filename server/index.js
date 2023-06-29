@@ -13,7 +13,7 @@ const port = process.env.PORT || 3002;
 import generate from "./generate.js";
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("SQL Query Generator");
 });
 
 app.listen(port, () => {
