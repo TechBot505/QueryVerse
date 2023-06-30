@@ -1,19 +1,22 @@
 import { useState } from "react";
-import { linkIcon, copy, tick } from "../assets";
+import { loader, linkIcon, copy, tick } from "../assets";
 
 function Demo() {
   const [userPrompt, setUserPrompt] = useState("");
   const [sqlQuery, setSqlQuery] = useState("");
   const [copied, setCopied] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setIsGenerating(true);
     const query = await generateQuery();
     setSqlQuery(query);
+    setIsGenerating(false);
   };
 
   const generateQuery = async () => {
-    const response = await fetch("http://localhost:3002/generate", {
+    const response = await fetch("https://query-verse.onrender.com/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +31,7 @@ function Demo() {
   const handleCopy = (copyQuery) => {
     setCopied(copyQuery);
     navigator.clipboard.writeText(copyQuery);
-    setTimeout(() => setCopied(""), 3000);
+    setTimeout(() => setCopied(""), 2000);
   };
 
   return (
@@ -61,7 +64,8 @@ function Demo() {
       </div>
 
       <div className="my-10 max-w-full flex justify-center items-center">
-        {sqlQuery && (
+        {isGenerating && <img src={loader} alt="loader" className="w-20 h-20 object-contain" />}
+        {sqlQuery && !isGenerating && (
           <div className="flex flex-col gap-3">
             <h2 className="font-satoshi text-bold text-gray-600 text-xl">
               SQL <span className="blue_gradient">Query</span>
