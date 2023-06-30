@@ -1,7 +1,7 @@
 # QueryVerse - SQL Query Generator
 This is a web application that utilizes the power of the OpenAI Davinci-003 model to generate SQL queries. The frontend of the application is built using React, while the server is developed using Node.js and Express.js.
 
-Website Link: [QueryVerse](https://queryverse.netlify.app/)
+Website Link: [QueryVerse](https://queryverse01.netlify.app/)
 
 ## Features
 * **SQL Query Generation:** The application allows users to generate SQL queries by inputting their requirements and utilizing the OpenAI Davinci-003 model. The model leverages its natural language processing capabilities to convert user input into SQL queries.
